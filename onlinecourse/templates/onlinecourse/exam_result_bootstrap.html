@@ -47,7 +47,7 @@
             <!--HINT Display failed info -->
             <p><b>Failed</b> Sorry, {{ user.username }}!! You have failed the final Quiz with score {{ grade }}/100</p>
         </div>
-        <a class="btn btn-link text-danger" href="{% url 'onlinecourse:course_details' course.id %}"><h5>Re-test</h5></a>
+        <a class="btn btn-outline-primary btn-outline-primary" href="{% url 'onlinecourse:course_details' course.id %}"><h1>Re-submit</h1></a>
         {% endif %}
 
         <div class="card-columns-vertical mt-1">
@@ -62,22 +62,23 @@
                     <!---for each choice in the question-->
                     {% for choice in question.choice_set.all %}
                         {% if choice in selected_choices %}
+                            {{choice.choice_text}}
+
                             {% if choice.is_correct %}
                                 <!-- if correct answer-->
-                                <p class='text-success'><b>Correct Answer:</b> {{ choice }}</p>
-                            {% else %}
-                                <!--if wrong answer -->
-                                <p class='text-danger'><b>Wrong Answer:</b> {{ choice }}</p>
+                                <p class='text-success'><b>Correct Answer:</b> {{ choice.choice_text }}</p>
+
                             {% endif %}
+
                         {% else %}
+                            
                             {% if choice.is_correct %}
                             <!-- unselect correct answer-->
-                            <p class='text-warning'><b>Correct Answer but not selected:</b> {{ choice }}</p>
-                            {% else %}
-                            <!-- unselect wrong answer-->
-                            <p ><b>Wrong Answer:</b> {{ choice }}</p>
+                            <p class='text-warning'><b>Not selected:</b> {{ choice.choice_text }}</p>
                             {% endif %}
+
                         {% endif %}
+
                     {% endfor %}
                 </div>
             </div>
